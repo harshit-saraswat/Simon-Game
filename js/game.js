@@ -3,7 +3,12 @@ var randomChosenColor="";
 var gamePattern=[];
 var userPattern=[];
 
+var started=false;
+
 function nextSequence(){
+    var levelString=$('#level-title').text();
+    var currentLevel=parseInt(levelString.slice(levelString.length-1))+1;
+    $('#level-title').text(levelString.slice(0,levelString.length-1)+currentLevel);
     var randomNumber= Math.floor(Math.random() * 4);
     randomChosenColor=buttonColours[randomNumber];
     gamePattern.push(randomChosenColor);
@@ -30,4 +35,12 @@ $('.btn').click(function (){
     userPattern.push(userChosenColor);
     animatePress(userChosenColor);
     playSound(userChosenColor);
+});
+
+$('html').keypress(()=>{
+    if(!started){
+        started=true;
+        $('#level-title').text('Level 0');
+        nextSequence();
+    }
 });
